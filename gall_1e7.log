@@ -1,0 +1,13 @@
+HIT 16 [7]
+  n<=1,000,000 hits 1 deferred 0 15s
+  n<=2,000,000 hits 1 deferred 0 30s
+  n<=3,000,000 hits 1 deferred 3 46s
+  n<=4,000,000 hits 1 deferred 8 62s
+  n<=5,000,000 hits 1 deferred 14 78s
+  n<=6,000,000 hits 1 deferred 23 94s
+  n<=7,000,000 hits 1 deferred 36 110s
+  n<=8,000,000 hits 1 deferred 54 127s
+  n<=9,000,000 hits 1 deferred 69 143s
+  n<=10,000,000 hits 1 deferred 88 160s
+main pass done: hits [(16, [7])]; deferred 88 (160s)
+Y=10,000,000: hits 1: [(16, [7])] ; deferred 88 all re-run with no cap (160s)
