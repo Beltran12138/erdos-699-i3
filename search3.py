@@ -47,9 +47,19 @@ def test_n(n):
     jmax = n // 2
     ce, nm = [], []
     big = [c for c in conds if c[0] >= 5]
+    # all j satisfying the low-digit congruences j mod q in {0..k} for every big prime power, via CRT
     if big:
-        p0, q, k0 = max(big, key=lambda c: c[1])
-        js = (r + q * s for s in range(jmax // q + 1) for r in range(k0 + 1))
+        sols, M = [0], 1
+        for _, q, k in sorted(big, key=lambda c: -c[1]):
+            inv = pow(M, -1, q)
+            new = []
+            for r0 in sols:
+                for t in range(k + 1):
+                    x = r0 + M * (((t - r0) * inv) % q)       # x ≡ r0 (mod M), x ≡ t (mod q)
+                    new.append(x)
+            M *= q
+            sols = [x for x in new if x <= jmax] if M > jmax else new
+        js = sorted(x + M * s for x in sols for s in range(max(0, (jmax - x) // M) + 1))
     else:
         js = range(4, jmax + 1)
     for j in js:
