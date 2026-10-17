@@ -1,0 +1,6 @@
+  20000 n tested, last n=84,538,294,272, CE 0, NM [] 26s
+  40000 n tested, last n=579,424,223,232, CE 0, NM [] 34s
+  60000 n tested, last n=1,779,550,912,512, CE 0, NM [] 44s
+  80000 n tested, last n=3,890,837,716,992, CE 0, NM [] 55s
+  100000 n tested, last n=7,355,265,712,128, CE 0, NM [] 67s
+Y=10,000,000,000,000 nosieve=False: tested 111919 n; counterexamples []; near-misses(no prime>=5 shared, j in [4,n/2]) [] (0) (74s)

@@ -100,7 +100,8 @@ The same steps apply with B and N′ in place of A and N. For p = 3 with v₃ �
 - **Computation.**
   - `micro.py` (exact Lucas test; it does not use the lemmas): for n ≤ 10⁷ no pair with 6 ≤ j < n/2 has gcd free of primes ≥ 5. It agrees pair by pair with brute force for n ≤ 1500. With j = n/2 allowed it reproduces (28,14), (244,122) and (2188,1094).
   - `search2.py`: covers every such pair with N(n) ≤ 10⁶ and finds none. The only pair satisfying the low-digit congruences alone is (162, 70).
-  - `search3.py` (uses the sieve of Lemma 1′ + Theorem 2, then tests every j exactly): n ≤ 10⁹ is done, with no counterexample. [n ≤ 10¹⁶: running.]
+  - `search3.py` (uses the sieve of Lemma 1′ + Theorem 2, then tests every j in [4, n/2] exactly, via CRT over all low-digit congruences and then full Lucas): for **all n ≤ 10¹⁶** there is no counterexample and no pair sharing no prime ≥ 5. 1,300,756 sieve survivors were tested. The float comparisons in the sieve were re-run in exact integer form (squared inequalities), and the survivor sets are identical (`sieve_exact_check.py`).
+  - **Consequence.** Given Lemma 1′ and Theorem 2, and Price's j = n/2 case, Erdős #699 holds at i = 3 for every n ≤ 10¹⁶.
 
 ## 6. What remains open
 
