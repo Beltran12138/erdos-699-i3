@@ -2,7 +2,7 @@
 
 Partial progress on [Erdős Problem #699](https://www.erdosproblems.com/699): for i = 3, every counterexample must have 4 | n and a power-of-2 factor of size ≳ n^{2/3}, so at most O(X^{1/3}) values n ≤ X remain. There is no counterexample with n ≤ 10¹⁶.
 
-- **[NOTE.md](NOTE.md)**: statements, proofs, verification status, and what remains open.
+- **[NOTE.md](NOTE.md)**: statements, proofs, verification status, and what remains open, including a clean conjecture that implies the i = 3 case (§6b: V(n) ∤ j(j−1)(j−2) for n > 16, checked for all n ≤ 10⁸) and why small-root/lattice tools stop exactly at the remaining case.
 - **[lean/Erdos699I3.lean](lean/Erdos699I3.lean)**: Lean 4 / Mathlib formalisation of the prime-power core (the Lucas low-digit lemma and the three labelled local lemmas). It uses the standard axioms only and has no `sorry`. The assembly steps are not formalised.
 - **Code**:
   - `micro.py`: direct exact scan, independent of the lemmas;

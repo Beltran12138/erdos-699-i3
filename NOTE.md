@@ -122,6 +122,34 @@ So any proof must use the n−1 and n−2 conditions together.
 
 **A heuristic for the remaining family F (not a proof).** Each prime power of B₁B₂ tags c with one of 2 or 3 values. CRT then determines c modulo B₁B₂, which is about n², while c must lie in (0, N′/2), an interval of length about n^{2/3}. Treat each tag pattern as a random residue. Summed over F with n ≤ 10¹², this predicts 4.4 solutions, but the true count is 0, so the model is conservative. The predicted count per decade falls by a factor of 7 to 10 each decade: it is 2.3·10⁻⁷ for [10¹¹, 10¹²). Extrapolating, the expected number of counterexamples above 10¹⁶ is of order 10⁻¹⁰.
 
+## 6b. A clean reformulation, the literature, and why existing tools stop exactly here
+
+**A weaker, cleaner condition.** Let g(t) = t(t−1)(t−2), and let V(n) be the "big part" of n(n−1)(n−2): the product of its prime powers p^e with p ≥ 5, together with 3^b when 3^b exactly divides one of n, n−1, n−2 and b ≥ 2. The low-digit system implies V(n) | g(j). This condition is weaker than the system: it allows, for example, a prime power of n−1 to divide j−2. It is essentially the necessary condition already noted by Bloom on the forum, namely that the rough part of C(n,3) divides C(j,3), stated here with the prime 3 handled exactly.
+
+**Conjecture.** For n > 16 and 3 ≤ j < n/2, V(n) ∤ j(j−1)(j−2).
+
+The conjecture implies #699 at i = 3, because every counterexample with j < n/2 satisfies V(n) | g(j), and j = n/2 is already known. We checked it **for all n ≤ 10⁸, with no sieve**, using `gall.py`. The only pair found is (16, 7): g(7) = 210 = 6·35 and V(16) = 35. This pair is not a #699 counterexample, since gcd(C(16,3), C(16,7)) = 80.
+
+Controls for this check:
+- it agrees with brute force for n ≤ 3000;
+- n whose CRT tree exceeded the cap were deferred and then re-run with no cap (18,235 of them);
+- four of the hardest deferred n, each with 14–15 prime factors, were also checked by brute force over all j.
+
+**Literature (the problem is a "small roots of polynomial congruences" problem).**
+- Crişan and Pollack, *The smallest root of a polynomial congruence*, Math. Res. Lett. 27 (2020) 43–66. For a fixed polynomial, the least root is < k/(log k)^c for almost all moduli k. Their §5 studies the root quotients |f(r)|/k, which is our cofactor Q.
+- Konyagin and Steger (as quoted by Crişan–Pollack): a monic polynomial of degree d has only O_{d,ε}(1) roots modulo k in [0, k^{1/d−ε}).
+- Coppersmith, J. Cryptology 10 (1997): roots below M^{1/d} can be found using lattice reduction.
+- Kerr and Mohammadi, J. Number Theory (2020), arXiv:1803.10373: lifting via lattices plus Bombieri–Pila. This gives upper bounds on the number of solutions in small boxes ("few"), not their absence ("none").
+- Hooley, Glasgow Math. J. (1990): equidistribution of roots.
+
+**Diagnosis.** A non-trivial root must satisfy g(j) ≥ V(n), so j ≳ V^{1/3}. The lattice and small-root tools above control exactly the roots below V^{1/3}. In the remaining family, V ≈ n³/(N′K), so j can exceed V^{1/3} by a factor of about N′^{1/3}. The roots we need to exclude therefore lie **just above the Coppersmith bound**. This is the same phenomenon as the "critical exponent" noted in the Van Doorn–Rocca manuscript: size and lattice arguments break even exactly at i = 3.
+
+Two further routes are ruled out:
+- **Congruence obstructions.** For n = 2^a and 3·2^a, j = 1 satisfies the whole system. So no congruence condition can rule out the system; any proof must use size and divisibility together, and in particular must separate j = 1 from j ≥ 4.
+- **Thue–Mahler reduction.** This fails, as explained in §6.
+
+Any proof must therefore exploit the special structure of these moduli: V(n) is (essentially) a value of the same polynomial g at n, and N′ divides n.
+
 ## 6. What remains open
 
 *A Thue–Mahler reduction does not work directly (pre-registration 3).* Write the system as K·c(N′−c)(N′−2c) = Q·(N′B₀−1)(N′B₀−2) with Q ∈ ℤ⁺. For each fixed (K, Q, B₀) this is a genus-1 curve in (c, N′). Its points with N′ ∈ {2^a, 3·2^a} are S-integral points: finite in number and computable. The obstruction is that comparing leading terms gives Q·B₀² ≈ K·g(c/N′)·N′, so Q and B₀ cannot both stay bounded. There are therefore infinitely many curves. In the relaxed system (conditions from n and n−1 only), the analogous cofactor indeed grows like N′, with values up to 3·10⁹ when N′ ≈ 10¹⁰. Any S-unit or Thue–Mahler route would first need a bound on Q, and that appears to be as hard as the original problem.
