@@ -100,6 +100,28 @@ The same steps apply with B and N′ in place of A and N. For p = 3 with v₃ �
   - `search3.py` (uses the sieve of Lemma 1′ + Theorem 2, then tests every j in [4, n/2] exactly, via CRT over all low-digit congruences and then full Lucas): for **all n ≤ 10¹⁶** there is no counterexample and no pair sharing no prime ≥ 5. 1,300,756 sieve survivors were tested. The float comparisons in the sieve were re-run in exact integer form (squared inequalities), and the survivor sets are identical (`sieve_exact_check.py`).
   - **Consequence.** Given Lemma 1′ and Theorem 2, and Price's j = n/2 case, Erdős #699 holds at i = 3 for every n ≤ 10¹⁶.
 
+
+## 6a. Further results (pre-registration 2, 2026-10-17)
+
+**Lemma 3 (P-reformulation).** Assume the low-digit system, i.e. j mod q ≤ k for every q ∥ B(n−k), k = 0, 1, 2; this is implied by H*. Put P := c(N′−c)/B₁ and Δ := N′−2c. Then:
+
+- (i) P is a positive integer and Δ² = N′² − 4·P·B₁;
+- (ii) every q ∥ B₂ divides exactly one of P and Δ, and in the second case P ≡ N₁′·B₀⁻² (mod q);
+- (iii) 1 ≤ P < N′²/(4B₁).
+
+Consequently, given only a factorisation of n−2, the admissible P form a CRT set with 2 choices per prime power of B₂. Each candidate is tested by asking whether N′² − 4PB₁ is a perfect square. An unfactored part C of B₂ is still usable, through the necessary condition C | P(PB₀² − N₁′). The independent referee proved (i)–(iii) and the cofactor condition (PROVED, high confidence) and tested them non-vacuously, with negative controls.
+
+**The pure family to n ≈ 10⁹⁰.** For n = 2^a and n = 3·2^a with 4 ≤ a ≤ 300 (597 values of n), every n is excluded. The code is `pure2.py` (2^a−1 is split into cyclotomic values) and `resolve.py`. For 48 values, sympy did not finish within 30 s; for these we used the full factorisations recorded in factordb, after checking locally that the product is correct and that every factor passes a BPSW probable-prime test. No value is left undetermined. Note that the primality of the large factors therefore rests on BPSW (probable primes).
+
+**Both halves are needed.** Take the 9,253 sieve survivors with n ≤ 10¹⁰.
+- Using only the n and n−1 conditions, 138 of them still admit some j. These concentrate on small B₀ (47 are 2^a or 3·2^a).
+- Using only the n and n−2 conditions, all 9,253 admit some j.
+- Using all three, none does.
+
+So any proof must use the n−1 and n−2 conditions together.
+
+**A heuristic for the remaining family F (not a proof).** Each prime power of B₁B₂ tags c with one of 2 or 3 values. CRT then determines c modulo B₁B₂, which is about n², while c must lie in (0, N′/2), an interval of length about n^{2/3}. Treat each tag pattern as a random residue. Summed over F with n ≤ 10¹², this predicts 4.4 solutions, but the true count is 0, so the model is conservative. The predicted count per decade falls by a factor of 7 to 10 each decade: it is 2.3·10⁻⁷ for [10¹¹, 10¹²). Extrapolating, the expected number of counterexamples above 10¹⁶ is of order 10⁻¹⁰.
+
 ## 6. What remains open
 
 The open part of i = 3 is the family n = 2^a·m with odd m < 4·2^{a/2}, i.e. at most O(X^{1/3}) values n ≤ X, subject to the further divisibility conditions (b′), (c′) and (e′). Numerically these conditions leave no n ≤ 10⁶; the referee observed this, and it is not proved. Heuristically only finitely many n should survive. A proof would need to control simultaneous divisibility of n−1 and n−2 by c, N′−c and N′−2c when N′ is a large power of 2. This resembles S-unit problems, where the known tools are ineffective.
