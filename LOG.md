@@ -124,3 +124,29 @@ n−2 的 t=1、t=2 部分同理整除 N₀−2c、N₀−c；t=0 部分与 A₀
   唯一的障碍是**整体的**：c 被确定在模约 n² 的余数类里，却要落在长度约 n^{2/3} 的窗口中（「巧合」）。
 - ⇒ 任何证明都必须把「大小」和「整除」结合起来，具体说，要能区分 j = 1 与 j ≥ 4。一种可检验的目标形状是：
   证明约束迫使 j ≡ 1（或 0）模某个大于 n/2 的数。路线 2（同余障碍）判死，置信度高。
+
+## 2026-10-17 文献探索：「CRT 拼出的数会不会很小」= 多项式同余的小根问题
+
+已核实的文献（OpenAlex 元数据 + 两篇全文已读）：
+- Crişan & Pollack, The smallest root of a polynomial congruence, Math. Res. Lett. 27 (2020) 43–66（全文已读）：
+  固定无重根 f，对几乎所有可解模 k，最小根 < k/(log k)^{c_f}（Hooley 方法）；§5 研究根商集 |f(r_k)|/k
+  （= 我们的余因子 Q），但只对固定 f。转述 Konyagin–Steger（Mat. Zametki）：首一 n 次 f 模 k 在 [0, k^{1/n−ε}) 内
+  只有 O_{n,ε}(1) 个根（原文未读）。
+- Hooley, On the location of the roots of polynomial congruences, Glasgow Math. J. (1990)（摘要已读）：根的等分布。
+- Coppersmith, Small solutions to polynomial equations, and low exponent RSA vulnerabilities, J. Cryptology 10 (1997)：
+  小于 M^{1/d} 的根可用格基约化（LLL）找出。
+- Kerr & Mohammadi, Points on polynomial curves in small boxes modulo an integer, J. Number Theory (2020)，arXiv 1803.10373
+  （全文前几页已读）：用格点 + Minkowski 把同余提升为整数方程，再用 Bombieri–Pila 计数；给出「很少」，不给出「没有」。
+
+重述（新）：令 g(t) = t(t−1)(t−2)，V(n) = B(n)B(n−1)B(n−2)（n(n−1)(n−2) 的大因子部分）。低位系统推出 V(n) | g(j)
+（更弱的条件，允许 n−1 的素数幂整除 j−2 等）。gtest.py：n ≤ 10¹⁰ 的 9253 个筛剩 n 中，满足 V(n) | g(j)、
+3 ≤ j < n/2 的只有 (16, 7)（g(7) = 210 = 6·35，V(16) = 35）。
+⇒ 猜想：n > 16、3 ≤ j < n/2 时，V(n) ∤ j(j−1)(j−2)。即「同一个三次多项式的两个值」之间的整除问题。
+
+与工具的关系：
+- 非平凡根要求 g(j) ≥ V，所以 j ≳ V^{1/3}；而 Coppersmith / Konyagin–Steger 恰好管 V^{1/3} 以下的根。
+  在剩余族里 V ≈ n³/(N·K)，j 可以比 V^{1/3} 大约 N^{1/3} 倍 ⇒ **我们的根恰好在 Coppersmith 界之上**。
+  这和 i = 3 是「临界情形」是同一回事：大小（格）论证的极限就是 M^{1/d}。
+- 等分布（Hooley、Crişan–Pollack）只管「几乎所有模数」，管不到 V(n) 这种特殊的单个模数。
+- 在密码学里，越过 M^{1/d} 找小根被普遍认为是困难的，所以不能指望一般性定理；
+  唯一的希望是我们模数的特殊结构（V 本身是 g 在 n 处的值，且 N | n）。
