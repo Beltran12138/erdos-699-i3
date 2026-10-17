@@ -39,7 +39,7 @@ For i = 3 the question becomes: for 3 < j < n/2, can G = gcd(C(n,3), C(n,j)) be 
 
   Since N′ ≤ 3·2^{v₂(n)}, in every case 2^{v₂(n)} > (√3·(n−1)(n−2))^{1/3}/3 ≈ 0.40·n^{2/3}.
 
-**Corollary.** Every counterexample to #699 at i = 3 has 4 | n and 2^{v₂(n)} ≳ 0.40·n^{2/3}. So n = 2^a·m with odd m < 4·2^{a/2}, and at most O(X^{1/3}) values n ≤ X remain.
+**Corollary.** Every counterexample to #699 at i = 3 has 4 | n and 2^{v₂(n)} ≳ 0.40·n^{2/3}. So n = 2^a·m with odd m < 4·2^{a/2}, and at most O(X^{1/3}) values n ≤ X remain. (For n ≳ 116 the bound on m follows from the inequality, since 27/√3 ≈ 15.59 < 16. For smaller n it is checked numerically. The constant is nearly sharp: max m²/2^a = 15.56 at n = 2^13·357.)
 
 For comparison, the number of n ≤ X that survive each filter:
 
