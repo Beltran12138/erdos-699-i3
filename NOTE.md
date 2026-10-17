@@ -124,6 +124,8 @@ So any proof must use the n−1 and n−2 conditions together.
 
 ## 6. What remains open
 
+*A Thue–Mahler reduction does not work directly (pre-registration 3).* Write the system as K·c(N′−c)(N′−2c) = Q·(N′B₀−1)(N′B₀−2) with Q ∈ ℤ⁺. For each fixed (K, Q, B₀) this is a genus-1 curve in (c, N′). Its points with N′ ∈ {2^a, 3·2^a} are S-integral points: finite in number and computable. The obstruction is that comparing leading terms gives Q·B₀² ≈ K·g(c/N′)·N′, so Q and B₀ cannot both stay bounded. There are therefore infinitely many curves. In the relaxed system (conditions from n and n−1 only), the analogous cofactor indeed grows like N′, with values up to 3·10⁹ when N′ ≈ 10¹⁰. Any S-unit or Thue–Mahler route would first need a bound on Q, and that appears to be as hard as the original problem.
+
 The open part of i = 3 is the family n = 2^a·m with odd m < 4·2^{a/2}, i.e. at most O(X^{1/3}) values n ≤ X, subject to the further divisibility conditions (b′), (c′) and (e′). Numerically these conditions leave no n ≤ 10⁶; the referee observed this, and it is not proved. Heuristically only finitely many n should survive. A proof would need to control simultaneous divisibility of n−1 and n−2 by c, N′−c and N′−2c when N′ is a large power of 2. This resembles S-unit problems, where the known tools are ineffective.
 
 ## 7. AI usage
