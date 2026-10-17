@@ -1,0 +1,12 @@
+spf table to 10,000,000 in 0.1s
+  n<=1,000,000 hits 0 candidates 53,726,857 22s
+  n<=2,000,000 hits 0 candidates 150,999,449 59s
+  n<=3,000,000 hits 0 candidates 277,806,471 105s
+  n<=4,000,000 hits 0 candidates 428,293,177 160s
+  n<=5,000,000 hits 0 candidates 598,742,464 221s
+  n<=6,000,000 hits 0 candidates 787,314,967 289s
+  n<=7,000,000 hits 0 candidates 992,018,020 361s
+  n<=8,000,000 hits 0 candidates 1,212,046,454 440s
+  n<=9,000,000 hits 0 candidates 1,448,270,788 525s
+  n<=10,000,000 hits 0 candidates 1,696,845,493 615s
+mode=no3 half=False N=10,000,000: 0 hits, 1,696,845,493 candidates, 615s
