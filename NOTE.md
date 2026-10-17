@@ -1,4 +1,4 @@
-# Erdős #699 at i = 3: a counterexample needs 4 | n and a power of 2 of size ≳ √n
+# Erdős #699 at i = 3: a counterexample needs 4 | n and a power of 2 of size ≳ n^{2/3}
 
 *Draft, 2026-10-17. The proofs below were checked by an independent referee (a separate agent working from the statements only), and the prime-power core is formalised in Lean 4 / Mathlib. There has been no human specialist review.*
 
@@ -35,24 +35,21 @@ For i = 3 the question becomes: for 3 < j < n/2, can G = gcd(C(n,3), C(n,j)) be 
 **Theorem 2.** Let 4 ≤ j < n/2 and suppose G = gcd(C(n,3), C(n,j)) is a power of 2. Write N′ = N′(n), N_k′ = N′(n−k) and B_k = B(n−k). Then:
 
 - (a′)–(e′) hold: these are (a), (b), (c), (e) with B, N′ in place of A, N.
-- (g) 4 | n and N₁′N₂′ ≤ 6.
-  - If N₁′ = 1, then n−1 ≤ N′²/4.
-  - If N₁′ ≠ 1, then 3 ∥ n−1, N′ = 2^{v₂(n)}, and √3·(n−1)(n−2) < N′³.
+- (g) 4 | n, N₁′N₂′ ≤ 6, and √3·(n−1)(n−2) < N′³. If moreover N₁′ = 1, then also n−1 ≤ N′²/4.
 
-  In every case, 2^{v₂(n)} ≥ (2/3)·√(n−1).
+  Since N′ ≤ 3·2^{v₂(n)}, in every case 2^{v₂(n)} > (√3·(n−1)(n−2))^{1/3}/3 ≈ 0.40·n^{2/3}.
 
-**Corollary.** Every counterexample to #699 at i = 3 has 4 | n and 2^{v₂(n)} ≥ (2/3)·√(n−1). When 3 ∥ n−1 the condition is even 2^{v₂(n)} ≳ 1.2·n^{2/3}.
+**Corollary.** Every counterexample to #699 at i = 3 has 4 | n and 2^{v₂(n)} ≳ 0.40·n^{2/3}. So n = 2^a·m with odd m < 4·2^{a/2}, and at most O(X^{1/3}) values n ≤ X remain.
 
 For comparison, the number of n ≤ X that survive each filter:
 
-| filter | n ≤ 10⁵ | n ≤ 10⁶ | n ≤ 10⁷ |
-|---|---|---|---|
-| Lemma 1 (d) | 4,749 | 24,694 | 127,560 |
-| Lemma 1′ | 337 | 856 | 2,100 |
-| Theorem 2 (g) | 288 | 920 | 2,892 |
-| Lemma 1′ + Theorem 2 | 126 | 312 | 737 |
+| filter | n ≤ 10⁵ | n ≤ 10⁶ | n ≤ 10⁷ | n ≤ 10⁸ |
+|---|---|---|---|---|
+| Lemma 1 (d) | 4,749 | 24,694 | 127,560 | |
+| Lemma 1′ | 337 | 856 | 2,100 | |
+| Theorem 2 (g) | 113 | 254 | 555 | 1,209 |
 
-The Theorem 2 count grows like √X.
+The Theorem 2 count grows like X^{1/3}. (An earlier draft of (g) used only n−1 ≤ N′²/4 when N₁′ = 1. That version gives 288 / 920 / 2,892, growing like √X, and it is the version used as the sieve in `search3.py`. The sieve is therefore weaker than (g), but still sound.)
 
 ## 4. Proofs
 
@@ -88,7 +85,7 @@ The same steps apply with B and N′ in place of A and N. For p = 3 with v₃ �
 - **(g).**
   - *n odd.* Then N′ = 3, c = 1, and (c′) forces B(n−2) | 2, so n = 3. This is excluded because j ≥ 4 requires n ≥ 9. Both (b′) and (c′) are needed here: n = 2^k + 1 satisfies the (b′) condition.
   - *n ≡ 2 (mod 4).* Then N′ = 6 and c ∈ {1, 2}, and (b′) forces n−1 | 5 or n−1 = 1, so n ≤ 6.
-  - *4 | n.* Then N₁′ ∈ {1, 3} and N₂′ ∈ {2, 6}, and 3 occurs in at most one of them. The bound follows as in (f).
+  - *4 | n.* Then N₁′ ∈ {1, 3} and N₂′ ∈ {2, 6}, and 3 occurs in at most one of them, so N₁′N₂′ ≤ 6. By (e′), (n−1)(n−2) = N₁′N₂′B₁B₂ ≤ 6·c(N′−c)(N′−2c) < N′³/√3. This holds in every case. The extra bound n−1 ≤ N′²/4 when N₁′ = 1 is as in Lemma 1′.
 
 ## 5. Verification
 
@@ -105,7 +102,7 @@ The same steps apply with B and N′ in place of A and N. For p = 3 with v₃ �
 
 ## 6. What remains open
 
-The open part of i = 3 is the family n = 2^a·m with odd m ≲ 2.25·2^a, i.e. at most O(√X) values n ≤ X, subject to the further divisibility conditions (b′), (c′) and (e′). Numerically these conditions leave no n ≤ 10⁶; the referee observed this, and it is not proved. Heuristically only finitely many n should survive. A proof would need to control simultaneous divisibility of n−1 and n−2 by c, N′−c and N′−2c when N′ is a large power of 2. This resembles S-unit problems, where the known tools are ineffective.
+The open part of i = 3 is the family n = 2^a·m with odd m < 4·2^{a/2}, i.e. at most O(X^{1/3}) values n ≤ X, subject to the further divisibility conditions (b′), (c′) and (e′). Numerically these conditions leave no n ≤ 10⁶; the referee observed this, and it is not proved. Heuristically only finitely many n should survive. A proof would need to control simultaneous divisibility of n−1 and n−2 by c, N′−c and N′−2c when N′ is a large power of 2. This resembles S-unit problems, where the known tools are ineffective.
 
 ## 7. AI usage
 
